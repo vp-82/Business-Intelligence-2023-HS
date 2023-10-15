@@ -63,7 +63,7 @@ In this exercise, you will replicate a PostgreSQL database to the Google Cloud P
 ## Step 6: Connect to the Cloud SQL Instance
 
 1. Make sure your Cloud SQL instance has a public IP address as Cloud Shell doesn't work with a private IP address.
-2. In the Google Cloud console, click the Cloud Shell icon ![](https://cloud.google.com/shell/images/cloud-shell-icon.png) in the upper right corner.
+2. In the Google Cloud console, click the Cloud Shell icon ![Cloud Shell](./Lesson_02/images/cloud-shell-icon.png "Cloud Shell") in the upper right corner.
 3. When Cloud Shell finishes initializing, a message will appear with a prompt similar to `username@sample-project:~ (sample-project)$`.
 4. If your Cloud Shell session is set to a different project, change it to the project where your Cloud SQL instance is located using the following command:
    ```bash
