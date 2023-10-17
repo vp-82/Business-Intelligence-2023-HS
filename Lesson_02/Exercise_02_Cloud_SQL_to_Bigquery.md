@@ -22,7 +22,7 @@ In this exercise, you will establish a connection between BigQuery and Cloud SQL
 1. In BigQuery's `Explorer pane`, click on **Add data**.
 2. Choose **Connections to external data sources** from the options.
 3. Fill in the required details:
-   - **Connection type**: Choose the source type (e.g., MySQL or Postgres).
+   - **Connection type**: Choose the source type (Postgres).
    - **Connection ID**: Use the format `bi-2023hs-connection-[SHORT NAME]`.
    - **Data location**: Pick a BigQuery location that's in the same region as your Cloud SQL instance.
    - **Cloud SQL instance ID**: Go to your Cloud SQL instance overview page. Here, you'll find the full name of the Cloud SQL instance in the format `project-id:location-id:instance-id`. Enter this ID.
@@ -99,3 +99,5 @@ Once you've constructed your query, run it in BigQuery to verify the result.
 This template now emphasizes the PostgreSQL-specific schema and table naming convention, which should help guide the students more effectively.
 
 ### Once you've constructed your query, run it in BigQuery to verify the result.
+
+# Don't forget to stop your Cloud SQL instance when you are done. You can restart it later anytime.
