@@ -39,7 +39,10 @@ for md_file in "$dir_path"/*.md; do
 
     # Convert .md to .pdf using pandoc
     echo "Converting $md_file to $pdf_file..."
-    pandoc -s "$md_file" -o "$pdf_file" --pdf-engine=xelatex --template=templates/custom-template.tex
+    pandoc -s "$md_file" -o "$pdf_file" --pdf-engine=xelatex --template=templates/custom-template.tex -V colorlinks=true \
+    -V linkcolor=red \
+    -V urlcolor=blue \
+    -V toccolor=gray
 done
 
 echo "Conversion completed!"

@@ -56,4 +56,46 @@ FROM
     "SELECT ROUND(AVG(salesorderdetail.unitprice), 2) as SalesAverage from sales.salesorderdetail;");
 ```
 
-What is the average unit price of all sales orders?
+### What is the average unit price of all sales orders?
+
+Understood! I'll make sure to incorporate that in the SQL template, making it more PostgreSQL-specific.
+
+---
+
+## Step 5: Find the Highest CustomerID
+
+**Task:** Identify the highest CustomerID amongst customers with the last name 'Yang'.
+
+**Resources:**
+- **ER Diagram**: Download it from Moodle
+- **Query Structure**:
+
+   ```sql
+   SELECT 
+       [Columns you want to retrieve, e.g., t1.column_name, t2.column_name] 
+   FROM 
+       [Schema].[Main Table, e.g., schema_name.table1 as t1]
+   INNER JOIN 
+       [Schema].[Another Table, e.g., schema_name.table2 as t2] ON t1.shared_key = t2.shared_key
+   WHERE 
+       [Condition, e.g., t2.LastName = 'Yang'] 
+   ORDER BY 
+       [Ordering criteria, e.g., t1.CustomerID DESC] 
+   LIMIT 1;
+   ```
+
+**Hints**:
+- Remember the relationships between tables. 
+- In PostgreSQL, tables are often accessed using the `schema_name.table_name` format. So, ensure to prepend the schema name before the table name.
+- The information you need is spread across two tables: one containing customer details and the other with personal information like names. You'll need to join these tables to access both the CustomerID and the last name.
+    - **Join Hint**: Use the `INNER JOIN` clause and the `ON` keyword to specify the columns that link the two tables together. These are often shared ID or key columns. In the SQL template above, replace `schema_name.table1` and `schema_name.table2` with actual schema and table names, and `shared_key` with the actual column that links the two tables.
+- Use the `WHERE` clause to filter by last name.
+- Use the `ORDER BY` clause in conjunction with `LIMIT` to get the highest CustomerID.
+
+Once you've constructed your query, run it in BigQuery to verify the result.
+
+---
+
+This template now emphasizes the PostgreSQL-specific schema and table naming convention, which should help guide the students more effectively.
+
+### Once you've constructed your query, run it in BigQuery to verify the result.
