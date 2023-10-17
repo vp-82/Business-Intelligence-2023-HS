@@ -52,7 +52,7 @@ This modification provides clearer instructions for students on where to find th
 SELECT
   *
 FROM
-  EXTERNAL_QUERY("bi-2023hs-pect.europe-west6.postgres-bq",
+  EXTERNAL_QUERY("[YOUR BIGQUERY CONNECTION]",
     "SELECT ROUND(AVG(salesorderdetail.unitprice), 2) as SalesAverage from sales.salesorderdetail;");
 ```
 
