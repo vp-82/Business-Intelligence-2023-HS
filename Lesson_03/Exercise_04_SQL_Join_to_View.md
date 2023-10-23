@@ -8,17 +8,17 @@ Construct a SQL view named `combined_address_view_[SHORTNAME]` that merges data 
 
 ### Tables to be used:
 
-1. **[TABLE1]**: Contains detailed information about various records.
-2. **[TABLE2]**: Holds data about different attributes.
-3. **[TABLE3]**: Offers details about various classifications.
+1. **[TABLE1]**: Contains detailed information about the address.
+2. **[TABLE2]**: Holds data about different states and provinces.
+3. **[TABLE3]**: Has data about countries and regions.
 
 ### Requirements:
 
-1. The view should be created in the `[YOUR PROJECT].adventureworks` schema.
+1. The view should be created in the `[YOUR PROJECT].adventureworks` dataset.
 2. The final view should include:
     - Relevant details from the `[TABLE1]` table.
     - Information from the `[TABLE2]` table.
-    - Classification from the `[TABLE3]` table.
+    - Data from `[TABLE3]` table.
 3. Apply JOIN operations to consolidate data from the three tables, ensuring correctness based on the relevant keys.
 
 ### Steps:
@@ -62,7 +62,7 @@ FROM
 ### Tips:
 
 1. Make use of table aliases to improve query clarity.
-2. Be judicious in selecting the fields to include in the final view, ensuring they're relevant to the task at hand.
+2. Better add more fields to your view, you might need them later.
 3. Confirm your JOIN operations are based on the right keys to maintain data integrity.
 
 ## Exercise: Identifying Top Countries by Sales Orders
@@ -80,7 +80,7 @@ Determine the top three countries with the most sales orders by joining the `sal
 
 ### Requirements:
 
-1. Your query should be executed in the `[YOUR PROJECT].adventureworks` schema.
+1. Your query should be executed in the `[YOUR PROJECT].adventureworks` dataset.
 2. Count the number of sales orders associated with each country.
 3. The results should display:
     - Country name.
