@@ -1,0 +1,111 @@
+{
+    "name": "postgres-salesorderheader-bq",
+    "description": "Data Pipeline Application",
+    "artifact": {
+        "name": "cdap-data-pipeline",
+        "version": "6.9.2",
+        "scope": "SYSTEM"
+    },
+    "config": {
+        "resources": {
+            "memoryMB": 2048,
+            "virtualCores": 1
+        },
+        "driverResources": {
+            "memoryMB": 2048,
+            "virtualCores": 1
+        },
+        "connections": [
+            {
+                "from": "CloudSQL PostgreSQL",
+                "to": "BigQuery"
+            }
+        ],
+        "comments": [],
+        "postActions": [],
+        "properties": {},
+        "processTimingEnabled": true,
+        "stageLoggingEnabled": false,
+        "stages": [
+            {
+                "name": "CloudSQL PostgreSQL",
+                "plugin": {
+                    "name": "CloudSQLPostgreSQL",
+                    "type": "batchsource",
+                    "label": "CloudSQL PostgreSQL",
+                    "artifact": {
+                        "name": "cloudsql-postgresql-plugin",
+                        "version": "1.10.3",
+                        "scope": "USER"
+                    },
+                    "properties": {
+                        "useConnection": "true",
+                        "connection": "${conn(cloudsql-postgresql-conn)}",
+                        "referenceName": "postgres-salesorderheader-bq",
+                        "importQuery": "select * from sales.salesorderheader;",
+                        "numSplits": "1",
+                        "fetchSize": "1000",
+                        "schema": "{\"type\":\"record\",\"name\":\"etlSchemaBody\",\"fields\":[{\"name\":\"salesorderid\",\"type\":[\"int\",\"null\"]},{\"name\":\"revisionnumber\",\"type\":[\"int\",\"null\"]},{\"name\":\"orderdate\",\"type\":[{\"type\":\"long\",\"logicalType\":\"timestamp-micros\"},\"null\"]},{\"name\":\"duedate\",\"type\":[{\"type\":\"long\",\"logicalType\":\"timestamp-micros\"},\"null\"]},{\"name\":\"shipdate\",\"type\":[{\"type\":\"long\",\"logicalType\":\"timestamp-micros\"},\"null\"]},{\"name\":\"status\",\"type\":[\"int\",\"null\"]},{\"name\":\"onlineorderflag\",\"type\":[\"boolean\",\"null\"]},{\"name\":\"purchaseordernumber\",\"type\":[\"string\",\"null\"]},{\"name\":\"accountnumber\",\"type\":[\"string\",\"null\"]},{\"name\":\"customerid\",\"type\":[\"int\",\"null\"]},{\"name\":\"salespersonid\",\"type\":[\"int\",\"null\"]},{\"name\":\"territoryid\",\"type\":[\"int\",\"null\"]},{\"name\":\"billtoaddressid\",\"type\":[\"int\",\"null\"]},{\"name\":\"shiptoaddressid\",\"type\":[\"int\",\"null\"]},{\"name\":\"shipmethodid\",\"type\":[\"int\",\"null\"]},{\"name\":\"creditcardid\",\"type\":[\"int\",\"null\"]},{\"name\":\"creditcardapprovalcode\",\"type\":[\"string\",\"null\"]},{\"name\":\"currencyrateid\",\"type\":[\"int\",\"null\"]},{\"name\":\"subtotal\",\"type\":[\"string\",\"null\"]},{\"name\":\"taxamt\",\"type\":[\"string\",\"null\"]},{\"name\":\"freight\",\"type\":[\"string\",\"null\"]},{\"name\":\"totaldue\",\"type\":[\"string\",\"null\"]},{\"name\":\"comment\",\"type\":[\"string\",\"null\"]},{\"name\":\"rowguid\",\"type\":\"string\"},{\"name\":\"modifieddate\",\"type\":[{\"type\":\"long\",\"logicalType\":\"timestamp-micros\"},\"null\"]}]}"
+                    }
+                },
+                "outputSchema": [
+                    {
+                        "name": "etlSchemaBody",
+                        "schema": "{\"type\":\"record\",\"name\":\"etlSchemaBody\",\"fields\":[{\"name\":\"salesorderid\",\"type\":[\"int\",\"null\"]},{\"name\":\"revisionnumber\",\"type\":[\"int\",\"null\"]},{\"name\":\"orderdate\",\"type\":[{\"type\":\"long\",\"logicalType\":\"timestamp-micros\"},\"null\"]},{\"name\":\"duedate\",\"type\":[{\"type\":\"long\",\"logicalType\":\"timestamp-micros\"},\"null\"]},{\"name\":\"shipdate\",\"type\":[{\"type\":\"long\",\"logicalType\":\"timestamp-micros\"},\"null\"]},{\"name\":\"status\",\"type\":[\"int\",\"null\"]},{\"name\":\"onlineorderflag\",\"type\":[\"boolean\",\"null\"]},{\"name\":\"purchaseordernumber\",\"type\":[\"string\",\"null\"]},{\"name\":\"accountnumber\",\"type\":[\"string\",\"null\"]},{\"name\":\"customerid\",\"type\":[\"int\",\"null\"]},{\"name\":\"salespersonid\",\"type\":[\"int\",\"null\"]},{\"name\":\"territoryid\",\"type\":[\"int\",\"null\"]},{\"name\":\"billtoaddressid\",\"type\":[\"int\",\"null\"]},{\"name\":\"shiptoaddressid\",\"type\":[\"int\",\"null\"]},{\"name\":\"shipmethodid\",\"type\":[\"int\",\"null\"]},{\"name\":\"creditcardid\",\"type\":[\"int\",\"null\"]},{\"name\":\"creditcardapprovalcode\",\"type\":[\"string\",\"null\"]},{\"name\":\"currencyrateid\",\"type\":[\"int\",\"null\"]},{\"name\":\"subtotal\",\"type\":[\"string\",\"null\"]},{\"name\":\"taxamt\",\"type\":[\"string\",\"null\"]},{\"name\":\"freight\",\"type\":[\"string\",\"null\"]},{\"name\":\"totaldue\",\"type\":[\"string\",\"null\"]},{\"name\":\"comment\",\"type\":[\"string\",\"null\"]},{\"name\":\"rowguid\",\"type\":\"string\"},{\"name\":\"modifieddate\",\"type\":[{\"type\":\"long\",\"logicalType\":\"timestamp-micros\"},\"null\"]}]}"
+                    }
+                ],
+                "id": "CloudSQL-PostgreSQL"
+            },
+            {
+                "name": "BigQuery",
+                "plugin": {
+                    "name": "BigQueryTable",
+                    "type": "batchsink",
+                    "label": "BigQuery",
+                    "artifact": {
+                        "name": "google-cloud",
+                        "version": "0.22.2",
+                        "scope": "SYSTEM"
+                    },
+                    "properties": {
+                        "useConnection": "true",
+                        "connection": "${conn(BigQuery Default)}",
+                        "dataset": "adventureworks",
+                        "table": "salesorderheader",
+                        "operation": "insert",
+                        "truncateTable": "true",
+                        "allowSchemaRelaxation": "false",
+                        "location": "US",
+                        "createPartitionedTable": "false",
+                        "partitioningType": "TIME",
+                        "partitionFilterRequired": "false",
+                        "schema": "{\"type\":\"record\",\"name\":\"outputSchema\",\"fields\":[{\"name\":\"salesorderid\",\"type\":\"int\"},{\"name\":\"revisionnumber\",\"type\":\"int\"},{\"name\":\"orderdate\",\"type\":{\"type\":\"long\",\"logicalType\":\"timestamp-micros\"}},{\"name\":\"duedate\",\"type\":{\"type\":\"long\",\"logicalType\":\"timestamp-micros\"}},{\"name\":\"shipdate\",\"type\":[{\"type\":\"long\",\"logicalType\":\"timestamp-micros\"},\"null\"]},{\"name\":\"status\",\"type\":\"int\"},{\"name\":\"onlineorderflag\",\"type\":\"boolean\"},{\"name\":\"purchaseordernumber\",\"type\":[\"string\",\"null\"]},{\"name\":\"accountnumber\",\"type\":[\"string\",\"null\"]},{\"name\":\"customerid\",\"type\":\"int\"},{\"name\":\"salespersonid\",\"type\":[\"int\",\"null\"]},{\"name\":\"territoryid\",\"type\":[\"int\",\"null\"]},{\"name\":\"billtoaddressid\",\"type\":\"int\"},{\"name\":\"shiptoaddressid\",\"type\":\"int\"},{\"name\":\"shipmethodid\",\"type\":\"int\"},{\"name\":\"creditcardid\",\"type\":[\"int\",\"null\"]},{\"name\":\"creditcardapprovalcode\",\"type\":[\"string\",\"null\"]},{\"name\":\"currencyrateid\",\"type\":[\"int\",\"null\"]},{\"name\":\"subtotal\",\"type\":\"string\"},{\"name\":\"taxamt\",\"type\":\"string\"},{\"name\":\"freight\",\"type\":\"string\"},{\"name\":\"totaldue\",\"type\":[\"string\",\"null\"]},{\"name\":\"comment\",\"type\":[\"string\",\"null\"]},{\"name\":\"rowguid\",\"type\":\"string\"},{\"name\":\"modifieddate\",\"type\":{\"type\":\"long\",\"logicalType\":\"timestamp-micros\"}}]}"
+                    }
+                },
+                "outputSchema": [
+                    {
+                        "name": "etlSchemaBody",
+                        "schema": "{\"type\":\"record\",\"name\":\"outputSchema\",\"fields\":[{\"name\":\"salesorderid\",\"type\":\"int\"},{\"name\":\"revisionnumber\",\"type\":\"int\"},{\"name\":\"orderdate\",\"type\":{\"type\":\"long\",\"logicalType\":\"timestamp-micros\"}},{\"name\":\"duedate\",\"type\":{\"type\":\"long\",\"logicalType\":\"timestamp-micros\"}},{\"name\":\"shipdate\",\"type\":[{\"type\":\"long\",\"logicalType\":\"timestamp-micros\"},\"null\"]},{\"name\":\"status\",\"type\":\"int\"},{\"name\":\"onlineorderflag\",\"type\":\"boolean\"},{\"name\":\"purchaseordernumber\",\"type\":[\"string\",\"null\"]},{\"name\":\"accountnumber\",\"type\":[\"string\",\"null\"]},{\"name\":\"customerid\",\"type\":\"int\"},{\"name\":\"salespersonid\",\"type\":[\"int\",\"null\"]},{\"name\":\"territoryid\",\"type\":[\"int\",\"null\"]},{\"name\":\"billtoaddressid\",\"type\":\"int\"},{\"name\":\"shiptoaddressid\",\"type\":\"int\"},{\"name\":\"shipmethodid\",\"type\":\"int\"},{\"name\":\"creditcardid\",\"type\":[\"int\",\"null\"]},{\"name\":\"creditcardapprovalcode\",\"type\":[\"string\",\"null\"]},{\"name\":\"currencyrateid\",\"type\":[\"int\",\"null\"]},{\"name\":\"subtotal\",\"type\":\"string\"},{\"name\":\"taxamt\",\"type\":\"string\"},{\"name\":\"freight\",\"type\":\"string\"},{\"name\":\"totaldue\",\"type\":[\"string\",\"null\"]},{\"name\":\"comment\",\"type\":[\"string\",\"null\"]},{\"name\":\"rowguid\",\"type\":\"string\"},{\"name\":\"modifieddate\",\"type\":{\"type\":\"long\",\"logicalType\":\"timestamp-micros\"}}]}"
+                    }
+                ],
+                "inputSchema": [
+                    {
+                        "name": "CloudSQL PostgreSQL",
+                        "schema": "{\"type\":\"record\",\"name\":\"etlSchemaBody\",\"fields\":[{\"name\":\"salesorderid\",\"type\":[\"int\",\"null\"]},{\"name\":\"revisionnumber\",\"type\":[\"int\",\"null\"]},{\"name\":\"orderdate\",\"type\":[{\"type\":\"long\",\"logicalType\":\"timestamp-micros\"},\"null\"]},{\"name\":\"duedate\",\"type\":[{\"type\":\"long\",\"logicalType\":\"timestamp-micros\"},\"null\"]},{\"name\":\"shipdate\",\"type\":[{\"type\":\"long\",\"logicalType\":\"timestamp-micros\"},\"null\"]},{\"name\":\"status\",\"type\":[\"int\",\"null\"]},{\"name\":\"onlineorderflag\",\"type\":[\"boolean\",\"null\"]},{\"name\":\"purchaseordernumber\",\"type\":[\"string\",\"null\"]},{\"name\":\"accountnumber\",\"type\":[\"string\",\"null\"]},{\"name\":\"customerid\",\"type\":[\"int\",\"null\"]},{\"name\":\"salespersonid\",\"type\":[\"int\",\"null\"]},{\"name\":\"territoryid\",\"type\":[\"int\",\"null\"]},{\"name\":\"billtoaddressid\",\"type\":[\"int\",\"null\"]},{\"name\":\"shiptoaddressid\",\"type\":[\"int\",\"null\"]},{\"name\":\"shipmethodid\",\"type\":[\"int\",\"null\"]},{\"name\":\"creditcardid\",\"type\":[\"int\",\"null\"]},{\"name\":\"creditcardapprovalcode\",\"type\":[\"string\",\"null\"]},{\"name\":\"currencyrateid\",\"type\":[\"int\",\"null\"]},{\"name\":\"subtotal\",\"type\":[\"string\",\"null\"]},{\"name\":\"taxamt\",\"type\":[\"string\",\"null\"]},{\"name\":\"freight\",\"type\":[\"string\",\"null\"]},{\"name\":\"totaldue\",\"type\":[\"string\",\"null\"]},{\"name\":\"comment\",\"type\":[\"string\",\"null\"]},{\"name\":\"rowguid\",\"type\":\"string\"},{\"name\":\"modifieddate\",\"type\":[{\"type\":\"long\",\"logicalType\":\"timestamp-micros\"},\"null\"]}]}"
+                    }
+                ],
+                "id": "BigQuery"
+            }
+        ],
+        "schedule": "0 1 */1 * *",
+        "engine": "spark",
+        "numOfRecordsPreview": 100,
+        "rangeRecordsPreview": {
+            "min": 1,
+            "max": "5000"
+        },
+        "description": "Data Pipeline Application",
+        "maxConcurrentRuns": 1
+    },
+    "version": "3069afff-6e91-11ee-bfa0-3a28a3d333e9"
+}
