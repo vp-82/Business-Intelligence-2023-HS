@@ -26,6 +26,8 @@ In this exercise, we will create a DataFusion instance and set up a pipeline to 
    1. Select "Include Google-provided role grants"
    2. Choose "Data Fusion Service Account" (xxx@gcp-sa-datafusion.iam.gserviceaccount.com) and then "Edit" (small pen on the right).
    3. Add Role "Cloud SQL Client" and then "Save".
+   4. Choose "Compute Engine Default Account" (xxx@developer.gserviceaccount.com)
+   5. Make sure the user has following roles: "Cloud Data Fusion Runner", "Cloud SQL Client", "Dataproc Worker" and "Editor"
 
 ## Step 3: View Instance
 
