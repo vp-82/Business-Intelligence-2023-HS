@@ -9,7 +9,7 @@ In this exercise, we will create a DataFusion instance and set up a pipeline to 
 3. **Edition**: Go with "Enterprise".
 4. **Wait**: Once you've filled in the details, your instance will begin initializing. This might take up to 20 minutes.
 
-## Step 2: Increase Your Quota
+## Step 2a: Increase Your Quota
 
 1. Navigate to [IAM Quotas](https://console.cloud.google.com/iam-admin/quotas) or from the GCP console, go to IAM → Quotas.
 2. Use the filter option and search for "Compute Engine".
@@ -19,6 +19,13 @@ In this exercise, we will create a DataFusion instance and set up a pipeline to 
    - In-use IP addresses: Set to 24.
    - CPUs (all regions): Set to 60.
 4. Wait for an approval email confirming your quota increase.
+
+## Step 2b: set authorization
+
+1. Go to IAM & Admin → IAM.
+   1. Select "Include Google-provided role grants"
+   2. Choose "Data Fusion Service Account" (xxx@gcp-sa-datafusion.iam.gserviceaccount.com) and then "Edit" (small pen on the right).
+   3. Add Role "Cloud SQL Client" and then "Save".
 
 ## Step 3: View Instance
 
@@ -47,8 +54,8 @@ In the search bar, input "PostgreSQL" to find relevant plugins and drivers.
 
 ## Step 9: Source Configuration
 
-1. In the left pane, select "CloudSQL PostgreSQL" as your source.
-2. Within the CloudSQL frame, select **Properties**.
+2. In the left pane, select "CloudSQL PostgreSQL" as your source.
+3. Within the CloudSQL frame, select **Properties**.
    1. Set "Use connection" to "YES".
    2. Click on "Browse Connections" and then "Add Connection".
    3. Choose "CloudSQL PostgreSQL" and give it the name `cloudsql-postgresql-conn`.
@@ -103,6 +110,14 @@ Run the pipeline and wait for it to finish. This might take between 3-5 minutes.
 4. Select the pipeline to import —> the pipeline opens in the designer.
 5. Click "Deploy".
 6. Repeat for all pipelines.
+
+---
+
+> ## **⚠️ Important Warning ⚠️**
+> 
+> **Don't forget to stop your Cloud SQL instance when you are done.** Otherwise, it will use up all your Cloud Credits, and you can’t continue with the course!
+
+---
 
 ---
 
