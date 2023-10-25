@@ -1,5 +1,13 @@
 # Business Intelligence - DataFusion
 
+---
+
+> ## **⚠️ Important Warning ⚠️**
+> 
+> **Important Reminder**: Please ensure you stop or delete your instances once you've completed the exerciseas, as outlined in the document's closing section. This activity is structured to be finished within 1.5 hours. Letting the instances run for extended periods (over 8 hours) can significantly deplete your Cloud Credits, potentially hindering your progress in the course.
+
+---
+
 In this exercise, we will create a DataFusion instance and set up a pipeline to transfer data from CloudSQL to BigQuery. Follow the steps below:
 
 ## Step 1: Create Instance
@@ -14,10 +22,10 @@ In this exercise, we will create a DataFusion instance and set up a pipeline to 
 1. Navigate to [IAM Quotas](https://console.cloud.google.com/iam-admin/quotas) or from the GCP console, go to IAM → Quotas.
 2. Use the filter option and search for "Compute Engine".
 3. Increase the following quotas:
-   - Persistent Disk Standard (GB): Set to 20000. (Firlter for "Compute Engine", "region:europe-west6", "disk" --> scroll down to "Persistent Disk Standard")
-   - CPUs: Set to 40. (Firlter for "Compute Engine", "region:europe-west6", "CPUS" --> scroll to "CPUS")
-   - In-use IP addresses: Set to 24. (Firlter for "Compute Engine", "region:europe-west6", "IP" --> scroll to "In-use IP addresses")
-   - CPUs (all regions): Set to 60. (Firlter for "Compute Engine", "all regions" --> scroll to "In-use IP addresses")
+   - Persistent Disk Standard (GB): Set to 40000. (Firlter for `Dimensions (e.g. location) : europe-west6` and `Metric : compute.googleapis.com/disks_total_storage`)
+   - CPUs: Set to 40. (Firlter for `Dimensions (e.g. location) : europe-west6` and `Metric : compute.googleapis.com/cpus`)
+   - In-use IP addresses: Set to 24. (Firlter for `Dimensions (e.g. location) : europe-west6` and `Metric : compute.googleapis.com/regional_in_use_addresses`)
+   - CPUs (all regions): Set to 60. (Firlter for `Metric : compute.googleapis.com/cpus_all_regions`)
 4. Wait for an approval email confirming your quota increase.
 
 ## Step 2b: set authorization
