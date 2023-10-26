@@ -22,9 +22,9 @@ In this exercise, we will create a DataFusion instance and set up a pipeline to 
 1. Navigate to [IAM Quotas](https://console.cloud.google.com/iam-admin/quotas) or from the GCP console, go to IAM → Quotas.
 2. Use the filter option and search for "Compute Engine".
 3. Increase the following quotas:
-   - Persistent Disk Standard (GB): Set to 40000. (Firlter for `Dimensions (e.g. location) : europe-west6` and `Metric : compute.googleapis.com/disks_total_storage`)
-   - CPUs: Set to 40. (Firlter for `Dimensions (e.g. location) : europe-west6` and `Metric : compute.googleapis.com/cpus`)
-   - In-use IP addresses: Set to 24. (Firlter for `Dimensions (e.g. location) : europe-west6` and `Metric : compute.googleapis.com/regional_in_use_addresses`)
+   - Persistent Disk Standard (GB): Set to 40000. (Firlter for `region : europe-west6` and `Metric : compute.googleapis.com/disks_total_storage`)
+   - CPUs: Set to 40. (Firlter for `region : europe-west6` and `Metric : compute.googleapis.com/cpus`)
+   - In-use IP addresses: Set to 24. (Firlter for `region: europe-west6` and `Metric : compute.googleapis.com/regional_in_use_addresses`)
    - CPUs (all regions): Set to 60. (Firlter for `Metric : compute.googleapis.com/cpus_all_regions`)
 4. Wait for an approval email confirming your quota increase.
 
