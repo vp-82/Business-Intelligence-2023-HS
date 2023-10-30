@@ -1,4 +1,4 @@
-## Exercise: Creating a Combined Address View
+## Exercise 1: Creating a Combined Address View
 
 In this exercise, you'll be tasked with joining data from three tables: `[TABLE1]`, `[TABLE2]`, and `[TABLE3]`. Your mission is to create a view that offers a comprehensive snapshot of the provided data.
 
@@ -16,9 +16,9 @@ Construct a SQL view named `combined_address_view_[SHORTNAME]` that merges data 
 
 1. The view should be created in the `[YOUR PROJECT].adventureworks` dataset.
 2. The final view should include:
-    - Relevant details from the `[TABLE1]` table.
-    - Information from the `[TABLE2]` table.
-    - Data from `[TABLE3]` table.
+    - All fields from the `[TABLE1]` table (except techincal fields like `rowguid` and `modifieddate`).
+    - All fields from the `[TABLE2]` table (except techincal fields like `rowguid` and `modifieddate`).
+    - All fields from the `[TABLE3]` table (except techincal fields like `rowguid` and `modifieddate`).
 3. Apply JOIN operations to consolidate data from the three tables, ensuring correctness based on the relevant keys.
 
 ### Steps:
@@ -65,7 +65,7 @@ FROM
 2. Better add more fields to your view, you might need them later.
 3. Confirm your JOIN operations are based on the right keys to maintain data integrity.
 
-## Exercise: Identifying Top Countries by Sales Orders
+## Exercise 2: Identifying Top Countries by Sales Orders
 
 In this exercise, your objective is to leverage the power of SQL to discover which countries register the highest number of sales orders. By joining the `salesorderheader` table with the `combined_address_view_[SHORTNAME]` view, you will extract insights on sales performance by country.
 
