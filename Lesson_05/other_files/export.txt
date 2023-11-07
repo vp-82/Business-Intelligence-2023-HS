@@ -1,0 +1,97 @@
+TABLENAME=stateprovince
+bq extract --location=europe-west6 \
+--destination_format CSV \
+--field_delimiter ';' \
+--print_header=true \
+bi-2023hs-pect:adventureworks.$TABLENAME \
+gs://bi-2023hs-pect-datatransfer/$TABLENAME.csv
+
+-----------------------------
+
+TABLENAME=address
+bq --location=europe-west6 load \
+--field_delimiter=';' \
+--autodetect \
+--source_format=CSV \
+adventureworks.$TABLENAME \
+gs://bi-2023hs-pect-datatransfer/$TABLENAME.csv
+
+TABLENAME=countryregion
+bq --location=europe-west6 load \
+--field_delimiter=';' \
+--autodetect \
+--source_format=CSV \
+adventureworks.$TABLENAME \
+gs://bi-2023hs-pect-datatransfer/$TABLENAME.csv
+
+TABLENAME=customer
+bq --location=europe-west6 load \
+--field_delimiter=';' \
+--autodetect \
+--source_format=CSV \
+adventureworks.$TABLENAME \
+gs://bi-2023hs-pect-datatransfer/$TABLENAME.csv
+
+TABLENAME=person
+bq --location=europe-west6 load \
+--field_delimiter=';' \
+--autodetect \
+--source_format=CSV \
+adventureworks.$TABLENAME \
+gs://bi-2023hs-pect-datatransfer/$TABLENAME.csv
+
+TABLENAME=product
+bq --location=europe-west6 load \
+--field_delimiter=';' \
+--autodetect \
+--source_format=CSV \
+adventureworks.$TABLENAME \
+gs://bi-2023hs-pect-datatransfer/$TABLENAME.csv
+
+TABLENAME=productcategory
+bq --location=europe-west6 load \
+--field_delimiter=';' \
+--autodetect \
+--source_format=CSV \
+adventureworks.$TABLENAME \
+gs://bi-2023hs-pect-datatransfer/$TABLENAME.csv
+
+TABLENAME=productreview
+bq --location=europe-west6 load \
+--field_delimiter=';' \
+--autodetect \
+--source_format=CSV \
+adventureworks.$TABLENAME \
+gs://bi-2023hs-pect-datatransfer/$TABLENAME.csv
+
+TABLENAME=productsubcategory
+bq --location=europe-west6 load \
+--field_delimiter=';' \
+--autodetect \
+--source_format=CSV \
+adventureworks.$TABLENAME \
+gs://bi-2023hs-pect-datatransfer/$TABLENAME.csv
+
+TABLENAME=salesorderheader
+bq --location=europe-west6 load \
+--field_delimiter=';' \
+--autodetect \
+--source_format=CSV \
+adventureworks.$TABLENAME \
+gs://bi-2023hs-pect-datatransfer/$TABLENAME.csv
+
+TABLENAME=salesorderdetail
+bq --location=europe-west6 load \
+--field_delimiter=';' \
+--autodetect \
+--source_format=CSV \
+adventureworks.$TABLENAME \
+gs://bi-2023hs-pect-datatransfer/$TABLENAME.csv
+
+TABLENAME=stateprovince
+bq --location=europe-west6 load \
+--field_delimiter=';' \
+--autodetect \
+--source_format=CSV \
+adventureworks.$TABLENAME \
+gs://bi-2023hs-pect-datatransfer/$TABLENAME.csv
