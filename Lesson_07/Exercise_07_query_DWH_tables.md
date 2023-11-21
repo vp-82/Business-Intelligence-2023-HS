@@ -2,16 +2,24 @@
 
 ## Objectives
 
-- Understand and apply the concept of creating a Data Warehouse (DWH) table in SQL.
-- Learn about and use Common Table Expressions (CTEs) in SQL queries.
-- Explore the creation of a sales DWH table in BigQuery.
-- Complete a skeleton SQL statement to create a DWH table in BigQuery.
+- Understand and apply the concept of querying a Data Warehouse (DWH) table in SQL.
+- Complete a skeleton SQL statement to create and query a DWH table in BigQuery.
+- Create charts in Looker Studio to visualize the results of a SQL query.
 
 ## Instructions
 
 ### Part 1: Creating a Sales Data Warehouse Table
 
 You will create a Data Warehouse table named `dwh_sales_data` in the `adventureworks` dataset. The table should be created using CTEs to organize the data from various source tables.
+
+Before beginning, update the script for the `dwh_product_with_reviews` table and convert string fields to numbers where appropriate.
+``` sql
+ CREATE OR REPLACE TABLE `adventureworks.dwh_product_with_reviews` AS
+ ...
+    CAST(p.standardcost AS NUMERIC) AS standardcost,
+    CAST(p.listprice AS NUMERIC) AS listprice,
+...
+ ```
 
 **Skeleton:**
 ```sql
@@ -27,22 +35,23 @@ FROM
 ```
 
 **Your Task:**
-Using the provided skeleton, complete the CTE and SELECT statement to create the `dwh_sales_data` table with the specified columns from the `salesorderdetail`, `salesorderheader` and `dwh_product_with_reviews` tables.
-
-Update the script for the `dwh_product_with_reviews` table and convert string fields to numbers where appropriate.
-``` sql
- CREATE OR REPLACE TABLE `adventureworks.dwh_product_with_reviews` AS
- ...
-    CAST(p.standardcost AS NUMERIC) AS standardcost,
-    CAST(p.listprice AS NUMERIC) AS listprice,
-...
- ```
+Using the provided skeleton, complete the CTE and SELECT statement to create the `dwh_sales_data` table with the specified columns from the `salesorderdetail`, `salesorderheader` and `dwh_product_with_reviews` tables. **Don't forget to convert STRINGS to NUMERIC where appropriate.**
 
 ---
 
 ### Part 2: Revenue Analysis Query
 
 Your task is to write a SQL query that compares various revenue metrics for each year. You will calculate the actual revenue, potential revenue at list price, total discounts given, and revenue loss from the list price.
+
+**Example:**
+```sql
+SUM(unitprice * orderqty * unitpricediscount) AS total_discount
+```
+- unitpriice --> actual price
+- listprice --> price for potential revenue
+- unitpricediscount --> e.g. 0.4 --> 40% discount
+- orderqty --> number of items sold at that price
+- loss --> listprice - unitprice
 
 **Skeleton:**
 ```sql
@@ -62,6 +71,8 @@ ORDER BY
 
 **Your Task:**
 Complete the query to calculate the required revenue metrics. **Once the query is executed, use Looker Studio to create a bar chart visualizing these metrics by year.**
+
+![Sales Data](./Lesson_07/images/sales_query.png "Sales Data")
 
 ---
 
@@ -166,3 +177,4 @@ ORDER BY
 **Your Task:**
 Complete the query to create bins for different product price ranges. **Then, use Looker Studio to create a visualization that shows the distribution of products in each price range.**
 
+![Product Categories](./Lesson_07/images/product-categories.png "Product Categories")
