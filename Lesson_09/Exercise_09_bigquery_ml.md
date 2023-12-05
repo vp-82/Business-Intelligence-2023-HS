@@ -33,6 +33,26 @@ GROUP BY date
 
 ## 1.2 Visualize Forecasted Values in Looker Studio (Without Decomposition):
 
+**Train the model**:
+
+```sql
+CREATE OR REPLACE MODEL `bqml.ga_arima_model`
+OPTIONS
+  (model_type = 'ARIMA_PLUS',
+   time_series_timestamp_col = 'parsed_date',
+   time_series_data_col = 'total_visits',
+   auto_arima = TRUE,
+   data_frequency = 'AUTO_FREQUENCY',
+   decompose_time_series = TRUE
+  ) AS
+SELECT
+  PARSE_TIMESTAMP("%Y%m%d", date) AS parsed_date,
+  SUM(totals.visits) AS total_visits
+FROM
+  `bigquery-public-data.google_analytics_sample.ga_sessions_*`
+GROUP BY date
+```
+
 **SQL Query with Comments:**
 ```sql
 -- Selecting historical and forecasted data for visualization
@@ -62,7 +82,7 @@ SELECT
   prediction_interval_lower_bound,   -- Lower bound of prediction interval
   prediction_interval_upper_bound    -- Upper bound of prediction interval
 FROM
-  ML.FORECAST(MODEL `bqml_tutorial.ga_arima_model`, -- Using the ARIMA model for forecasting
+  ML.FORECAST(MODEL `bqml.ga_arima_model`, -- Using the ARIMA model for forecasting
               STRUCT(30 AS horizon, 0.8 AS confidence_level)) -- Forecasting parameters
 ```
 
