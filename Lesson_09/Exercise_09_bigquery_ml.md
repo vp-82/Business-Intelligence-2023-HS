@@ -114,6 +114,7 @@ FROM
 ## 1.3 Visualize Forecasted Values in Looker Studio (With Decomposition):
 
 **SQL Query:**
+
 ```sql
 #standardSQL
 SELECT
@@ -203,6 +204,7 @@ FROM
 You can create and train a logistic regression model using the CREATE MODEL statement with the option 'LOGISTIC_REG'. The following query uses a CREATE MODEL statement to train a new binary logistic regression model on the view from the previous query.
 
 **SQL Query**:
+
   ```sql
 CREATE OR REPLACE MODEL `bqml.census_model`
 OPTIONS
@@ -237,6 +239,7 @@ The SELECT statement queries the view from Step 2. This view contains only the c
 After training your model, you evaluate the performance of the classifier using the ML.EVALUATE function. The ML.EVALUATE function evaluates the predicted values against the actual data.
 
 **SQL Query**:
+
   ```sql
 SELECT
   *
@@ -298,6 +301,7 @@ After you train your model, you can use it to predict the income bracket of a pe
 To identify the income bracket to which a particular respondent belongs, use the ML.PREDICT function. The following query predicts the income bracket of every respondent in the prediction dataframe.
 
 **SQL Query**:
+
 ```sql
 SELECT
   *
@@ -324,6 +328,7 @@ To understand why your model is generating these prediction results, you can use
 ML.EXPLAIN_PREDICT is an extended version of ML.PREDICT. ML.EXPLAIN_PREDICT not only outputs prediction results, but also outputs additional columns to explain the prediction results. So in practice, you only need to run ML.EXPLAIN_PREDICT while skipping running ML.PREDICT.
 
 **SQL Query**:
+
 ```sql
 SELECT
   *
@@ -344,6 +349,7 @@ FROM
 To know which features are the most important to determine the income bracket in general, you can use the ML.GLOBAL_EXPLAIN function. In order to use ML.GLOBAL_EXPLAIN, the model must be retrained with the option ENABLE_GLOBAL_EXPLAIN=TRUE. Rerun the training query with this option using the following query:
 
 **SQL Query for Retraining**:
+
 ```sql
 CREATE OR REPLACE MODEL `bqml.census_model`
 OPTIONS
@@ -361,6 +367,7 @@ WHERE
 ```
 
 **SQL Query for Global Explanation**:
+
 ```sql
 SELECT
   *
